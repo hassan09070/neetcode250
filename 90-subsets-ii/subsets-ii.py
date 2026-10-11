@@ -1,19 +1,19 @@
+
 class Solution:
     def subsetsWithDup(self, nums: list[int]) -> list[list[int]]:
-        results=[]
+        results = []
         nums.sort()
 
-        def bt(path,i):
-            if path not in results:
-                results.append(path.copy())
-            if i == len(nums):
-                return 
+        def bt(path, i):
+            results.append(path.copy())
 
-            for x in range(i,len(nums)):
-                cur= path.copy()
-                cur.append(nums[x])
-                bt(cur,x+1)
+            for x in range(i, len(nums)):
+                if x > i and nums[x] == nums[x - 1]:
+                    continue
 
-        bt([],0)
+                path.append(nums[x])
+                bt(path, x + 1)
+                path.pop()
+
+        bt([], 0)
         return results
-        
